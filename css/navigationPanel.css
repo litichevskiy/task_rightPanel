@@ -1,0 +1,53 @@
+[data-role="navigationPanel"]{
+	display: block;
+	width: 100%;
+	height: 30px;
+	background-color: #2F2F2F;
+}
+[data-role="listNavigation"]{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	display: inline-block;
+}
+[data-role="home"],
+[data-role="back"],
+[data-role="forward"]{
+	height: 100%;
+	color: lightgrey;
+	display: inline-block;
+	padding-left: 10px;
+}
+.step{
+	font-size: 25px;
+}
+#openCloseRightPanel:checked ~ [data-role="rightPanel"]{
+	right: -270px;
+}
+#openCloseRightPanel{
+	display: none;
+}
+#openCloseRightPanel:checked ~ label .openCloseRightPanel:before{
+ 	content: 'open';
+ 	display: inline-block;
+ 	padding: 5px 10px 5px 5px;
+}
+.openCloseRightPanel:before{
+ 	content: 'close';
+ 	display: inline-block;
+ 	padding: 5px 10px 5px 5px;
+}
+.openCloseRightPanel:hover{
+	color: #F9E642;
+}
+.hide{
+	visibility: hidden;
+}
+.active{
+	visibility: visible;
+	cursor: pointer;
+}
+.active:hover{
+	color: #F9E642;
+}

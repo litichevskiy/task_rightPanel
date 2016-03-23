@@ -1,0 +1,49 @@
+body,html{
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+[data-role="rightPanel"]{
+	position: absolute;
+	right: 0;
+	height: 100vh;
+	width: 270px;
+	border-left: 1px solid lightgrey;
+	z-index: 0;
+	transition: linear 0.2s;
+}
+[data-role="openCloseRightPanel"]{
+	position: fixed;
+	top: 0;
+	right: 0;
+	display: inline;
+	height: 30px;
+	cursor: pointer;
+	z-index: 1;
+	background-color: #2F2F2F;
+	color: lightgrey;
+}
+[data-role="listCategory"]{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	top: 30px;
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+[data-role^="category"]{
+	background-color: #F1F1F1;
+}
+[ data-role="containerCategory"]{
+	border-bottom: 1px solid #CDCDCD;
+	flex-grow: 1;
+}
+[data-role="mainBlock"]{
+	width: 100%;
+	height: 100%;
+}

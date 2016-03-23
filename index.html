@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>rightPanel</title>
+		<link rel="stylesheet" type="text/css" href="./css/index.css">
+		<link rel="stylesheet" type="text/css" href="./css/navigationPanel.css">
+	</head>
+	<body>
+
+		<input type="checkbox" id="openCloseRightPanel" />
+
+		<label for="openCloseRightPanel">
+			<div data-role="openCloseRightPanel" class="openCloseRightPanel"></div>
+		</label>
+
+		<div data-role="rightPanel">
+			<nav data-role="navigationPanel">
+				<ul data-role="listNavigation">
+					<li data-role="home">home</li>
+					<li data-role="back" class="step hide">&#60;</li>
+					<li data-role="forward" class="step hide">&#62;</li>
+				</ul>
+			</nav>
+			<aside data-role="mainBlock">
+				<menu data-role="listCategory" data-name="mainPage">
+					<li data-role="containerCategory">
+						<section data-role="category_Construction"></section>
+					</li>
+					<li data-role="containerCategory">
+						<section data-role="category_Coverings"></section>
+					</li>
+					<li data-role="containerCategory">
+						<section data-role="category_"></section>
+					</li>
+					<li data-role="containerCategory">
+						<section data-role="category_"></section>
+					</li>
+					<li data-role="containerCategory">
+						<section data-role="category_"></section>
+					</li>
+					<li data-role="containerCategory">
+						<section data-role="category_"></section>
+					</li>
+				</menu>
+			</aside>
+		</div>
+
+		<script type="text/javascript" src="./js/RightPanel.js"></script>
+		<script type="text/javascript" src="./js/index.js"></script>
+	</body>
+</html>
