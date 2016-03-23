@@ -36,6 +36,14 @@
 	};
 
 
+	function getNextPage( storage, count, parentElem ) {
+
+		var page = storage[count];
+
+		showSelectPage( parentElem, page );
+	};
+
+
 	function checkForward() {
 
 		var check = theBlock.step.isForward();
@@ -60,46 +68,54 @@
 
 	RightPanel.prototype.stepForward = function() {
 
-		if ( countPage > theBlock.storagePage.length ) {
+		countPage += 1;
+
+		if ( countPage === theBlock.storagePage.length -1 ) {
 			theBlock.activeButtonForward( false );
 			theBlock.step.setStepForward( false );
-			return
+
+			getNextPage( theBlock.storagePage, countPage, theBlock.mainBlock );
+			return;
 		}
 
-		var page = theBlock.storagePage[countPage +1];
-
-		showSelectPage( theBlock.mainBlock, page );
-
-		countPage += 1;
-	}
+		if ( this.storagePage.length >= 2 ) {
+				theBlock.step.setStepBack( true );
+				theBlock.activeButtonBackward( true );
+			}
+		getNextPage( theBlock.storagePage, countPage, theBlock.mainBlock );
+	};
 
 
 	RightPanel.prototype.backward = function() {
+
+		countPage -= 1;
 
 		var checkStep = theBlock.step.isBackward();
 
 		if ( checkStep ) {
 
 			if ( countPage === 0 ) {
+
 				theBlock.activeButtonBackward( false );
 				theBlock.step.setStepBack( false );
+
+				theBlock.step.setStepForward( true );
+				theBlock.activeButtonForward( true );
+
+				getNextPage( theBlock.storagePage, countPage, theBlock.mainBlock );
 				return
 			}
 
-			var page = theBlock.storagePage[countPage -1];
-
-			showSelectPage( theBlock.mainBlock, page );
+			getNextPage( theBlock.storagePage, countPage, theBlock.mainBlock );
 
 			theBlock.step.isForward( true );
 			theBlock.activeButtonForward( true );
 
 			theBlock.activeButtonHome( true );
 			theBlock.step.setIsHome( true );
-
-			countPage -= 1;
-
 		}
 	};
+
 
 	RightPanel.prototype.activeButtonForward = function( _boolean ) {
 
@@ -107,7 +123,7 @@
 
 			theBlock.forward.classList.add( ACTIVE );
 
-		} else theBlock.back.classList.remove( ACTIVE );
+		} else theBlock.forward.classList.remove( ACTIVE );
 	};
 
 
@@ -151,36 +167,31 @@
 
 		if ( !page ) return;
 
-		if (this.storagePage.length >= 2) {
+		if ( this.storagePage.length >= 2 ) {
 
-			theBlock.step.setStepForward( true );
+			theBlock.step.setStepBack( true );
 			theBlock.activeButtonBackward( true );
 
+			theBlock.step.setStepForward( true );
 		}
 
-		var index = this.storagePage.indexOf( page );
-
-		if ( index !== -1 ) {
-
-			this.storagePage.splice( index, 1 );
-			this.storagePage.push( page );
-		}
-
-		if ( index === -1 ) this.storagePage.push( page );
+		this.storagePage.push( page );
 
 		var currentPage = this.mainBlock.children[0];
 
-		if ( currentPage === page ) throw new Error('This page is displayed');
+		if ( currentPage === page ) console.error('This page is displayed');
 
 		if ( currentPage ) {
 
 			this.mainBlock.replaceChild( page , currentPage );
+			countPage = this.storagePage.length -1;
+
 			return page;
 		}
 
 		this.mainBlock.appendChild( page );
 
-		countPage = this.storagePage.length;
+		countPage = this.storagePage.length -1;
 
 		return page;
 	};
@@ -215,12 +226,18 @@
 
 			var index = this.storagePage.indexOf( page );
 
+			var nextPage = this.storagePage[index -1] || null;
+
 			if ( index !== -1 ) {
 
 				this.storagePage.splice( index, 1 );
 				countPage = this.storagePage.length;
 				this.backward();
 			}
+
+			if ( !nextPage ) return console.error('Previous page not found');
+
+			showSelectPage( this.mainBlock, nextPage );
 		}
 
 	};
